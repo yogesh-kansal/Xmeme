@@ -1,1 +1,1 @@
-exports.backend='http://localhost:3000/';
+exports.backend=process.env.BACKEND_URL ||'http://localhost:8081/';

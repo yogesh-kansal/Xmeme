@@ -82,7 +82,12 @@ class RenderForm extends Component {
         this.setState({
             author:'',
             url:'',
-            caption:''
+            caption:'',
+            touched: {
+                author: false,
+                url: false,
+                caption: false
+            }
         })
     }
 
@@ -118,7 +123,7 @@ class RenderForm extends Component {
             <div className="form">
             <div className="container">
                 <div className="row">
-                    <div className="col-auto">
+                    <div className="col-auto label">
                         <h3>MEME STREAM</h3>
                         <hr></hr>
                     </div>
@@ -143,7 +148,7 @@ class RenderForm extends Component {
                             <FormGroup row>
                                 <Label htmlFor="url" className="label col-12 col-sm-6">URL</Label>
                                 <Input type="text" id="url" name="url"  className="col-12 col-sm-9"
-                                        placeholder="meme URL"
+                                        placeholder="URL for your meme"
                                         value={this.state.url}
                                         valid={errs.url==''}
                                         invalid={errs.url!==''}
@@ -156,7 +161,7 @@ class RenderForm extends Component {
                             <FormGroup row>
                                 <Label htmlFor="caption" className="label col-12 col-sm-6">Caption</Label>
                                 <Input type="text" id="caption" name="caption"  className="col-12 col-sm-9"
-                                        placeholder="Caption"
+                                        placeholder="Caption for your meme"
                                         value={this.state.caption}
                                         valid={errs.caption==''}
                                         invalid={errs.caption!==''}

@@ -9,11 +9,11 @@ function Footer(props) {
             <div className="row justify-content-center">             
                 <div className="col-12 col-sm-4 align-self-center">
                     <div className="text-center">
-                        <p><strong>Yogesh Kansal<br></br></strong>
-                            <a href="https://linkedin.com"><span class="fa fa-linkedin fa-lg"></span></a>&nbsp;
-                            <a href="https://github.com"><span class="fa fa-github fa-lg"></span></a>&nbsp;
+                        <div><strong>Yogesh Kansal<br></br></strong>
+                            <a href="https://www.linkedin.com/in/yogesh-kansal-044a75194/"><span class="fa fa-linkedin fa-lg"></span></a>&nbsp;
+                            <a href="https://github.com/yogesh-kansal"><span class="fa fa-github fa-lg"></span></a>&nbsp;
                             <a href="https://facebook.com/"><span class="fa fa-facebook fa-lg"></span></a>
-                        </p>
+                        </div>
                     </div>
 
                 </div>

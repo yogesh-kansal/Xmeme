@@ -9,29 +9,16 @@ import Memes from './components/Rendermemes/memes';
 import About from './components/About/about';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state={
-      memeCount: 0
-    }
-    this.Count = this.Count.bind(this);
-  }
-
-  Count(n)
-  {
-      this.state.memeCount=n
-  }
-  
   render() {
     console.log("state app is",this.state);
     return (
       <div>
         <BrowserRouter>
-          <Header count ={this.state.memeCount}/>
+          <Header />
 
           <Switch>
-            <Route path="/memes" component={() => <Memes Count={(n) =>this.Count(n)}/>}/>
+            <Route path="/memes" component={() => <Memes />}/>
             <Route path="/home" component={() => <Form/>}/>
             <Route path="/about" component={() => <About/>}/>
             <Redirect to="/home"/>

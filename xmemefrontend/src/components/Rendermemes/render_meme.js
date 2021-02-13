@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Card, CardImg, CardBody, CardHeader, Button, 
-    Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, CardFooter} from 'reactstrap';
+    Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, CardFooter, FormFeedback} from 'reactstrap';
 import './memes.css'
 import URL from '../../config';
 
@@ -11,11 +11,17 @@ class Render_meme extends Component {
         this.state = {
             isModalOpen: false,
             url:'',
-            caption:''
+            caption:'',
+            touched: {
+                url: false,
+                caption: false
+            }
         }
         this.toggleModal = this.toggleModal.bind(this);
         this.handleModify = this.handleModify.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.validate = this.validate.bind(this);
+        this.handleTouch = this.handleTouch.bind(this);
     }
 
     toggleModal() {
@@ -42,6 +48,7 @@ class Render_meme extends Component {
         if(this.state.caption.length) {
             data.caption = this.state.caption
         }
+        this.toggleModal();
         console.log("data is",data);
         alert("data is"+JSON.stringify(data));
 
@@ -62,11 +69,34 @@ class Render_meme extends Component {
         })
     }
 
+        //for touchng th box
+        handleTouch =(feild) =>(e) => {
+            this.setState({
+                touched: {...this.state.touched, [feild]:true}
+            });
+        }
+    
+        //validating the form
+        validate(url, caption) {
+            const err ={
+                url:'',
+                caption:''
+            }
+            if(this.state.touched.url && !url.length)
+                err.url='feild is optional';
+            if(this.state.touched.caption && caption.length>20)
+                err.caption='feild is optional but if you do then at-max 20 char length is acceptable'; 
+    
+            return err;
+        }
+
     render() {
+        const errs = this.validate(this.state.url, this.state.caption);
 
         return (
+            
         <>
-            <Card className="card" style={{width:"80%", height:"60%"}} >
+            <Card className="card" style={{width:"100%", height:"100%"}} >
                 <CardHeader style={{background:"#555", color:"white"}}
                     > 
                     <div className="row">
@@ -76,25 +106,29 @@ class Render_meme extends Component {
                         </div>
                     </div>
                 </CardHeader>
-
-                <CardImg  className="img" width="80%" height="80%" src={this.props.meme.url} alt="meme"/>
-                <CardBody className="caption">
-                    <div className="row">
-                        {this.props.meme.caption}
-                    </div>
+                <CardBody >
+                    <CardImg  className="img" width="100%" height="100%" src={this.props.meme.url} alt="meme"/>
                 </CardBody>
-
-
                 <CardFooter>
-                    <div className="row">
-                        posted on: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
-                        <div className="col-auto ml-auto mt-3">
+                    <div className="conatiner">
+                        <div className="row mb-1 caption">
+                            <div className="col-auto">
+                                {this.props.meme.caption}
+                            </div>
+                        </div>
+                        <div className="row time2">
+                            <div className="ml-auto">
+                                posted on: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
+                            </div>
+                        </div>
+                        <div className="row mt-2">
+                            <div className="ml-auto">
                             <Button type="" color="secondary" className="mr-1" 
-                                onClick={this.toggleModal}>Modify</Button>
+                               onClick={this.toggleModal}>Modify</Button>
+                            </div>
                         </div>
                     </div>
                 </CardFooter>
-
             </Card>
                                          
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
@@ -104,18 +138,31 @@ class Render_meme extends Component {
 
                 <ModalBody>
                     <Form onSubmit={this.handleModify}>
+                    <FormGroup>
+                            <Label>Author of The Meme</Label>
+                            <Input type="text" value={this.props.meme.author} disabled/>
+                        </FormGroup>
+                        
                         <FormGroup>
                             <Label htmlFor="url">Modified URL</Label>
                             <Input type="text" id="url" name="url" 
                                 value={this.state.url}
+                                valid={errs.url==''}
+                                invalid={errs.url!==''}
+                                onBlur={this.handleTouch('url')}
                                 onChange={this.handleChange} />
+                                <FormFeedback>{errs.url}</FormFeedback>
                         </FormGroup>
         
                         <FormGroup>
                             <Label htmlFor="caption">Modified Caption</Label>
                             <Input type="caption" id="caption" name="caption" 
                                 value={this.state.caption}
-                                    onChange={this.handleChange} />
+                                valid={errs.caption==''}
+                                invalid={errs.caption!==''}
+                                onBlur={this.handleTouch('caption')}
+                                onChange={this.handleChange} />
+                            <FormFeedback>{errs.caption}</FormFeedback>
                         </FormGroup>
                                                 
                         <Button type="submit" value="submit" color="primary">Modify</Button>

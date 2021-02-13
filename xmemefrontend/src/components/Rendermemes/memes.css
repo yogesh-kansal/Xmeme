@@ -1,7 +1,12 @@
 .card {
-    background: #eee;
-    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
     color:#696969;
+    font-size: large;
+    font-family: Gill Sans Extrabold, cursive;
+    box-shadow: 1px 1px 2px 2px #ccc;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+
+
 }
 
 .err{
@@ -18,14 +23,23 @@
     font-size: 12px;
     margin: auto;
 }
+.time2 {
+    font-size: 14px;
+    margin: auto;
+}
 
 .caption {
     color: gray;
     margin-top: 0px;
     margin-bottom: 6px;
+    font-size: large;
+    font-family:cursive;
+    font-style: inherit;
     font-weight: bold;
-    font-style: italic;
 }
 .img {
-    padding: 2px 2px 2px 2px;
+    padding: 1px 1px 1px 1px;
+}
+.hor {
+    color: black;
 }
