@@ -12,8 +12,8 @@ var memeRouter = require('./routes/memeRouter');
 
 //connecting to database 
 const url = "mongodb://localhost:27017/Xmeme";
-mongoose.connect(url, {
-  useNewUrlParser: true,
+mongoose.connect(process.env.MONGODB_URL || url, {
+  useNewUrlParser: true, 
   useUnifiedTopology: true,
   useFindAndModify: false 
 });
