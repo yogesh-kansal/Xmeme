@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var http=require('http');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,6 +24,7 @@ mongoose.connection.once('open', () => {
     console.log("MongoDB connected on "+url);
 });
 
+
 var app = express();
 
 // view engine setup
@@ -38,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/memes', memeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,4 +58,32 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports =app;
+
+
+//swagger
+//importing swagger depandencies
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const options = {
+  swaggerDefinition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Swagger for Xmeme",
+      description:"This is documententaion for xmeme web App using Swagger API, presented by Yogesh kansal",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:8081",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+const swaggerSpecs = swaggerJsdoc(options);
+var swaggerApp = express();
+var swaggerserver = http.createServer(swaggerApp);
+swaggerserver.listen(8080);
+swaggerApp.use(logger('dev'));
+swaggerApp.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));

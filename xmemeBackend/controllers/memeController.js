@@ -69,12 +69,12 @@ exports.patch_At_id = catchAsync(async (req, res, next) => {
 
     var modified = await Memes.findByIdAndUpdate(req.params.id, {
         $set: req.body
-    });
+    },{new:true});
     res.statusCode =200;
     res.setHeader('Content-Type', 'application/json');
     res.json({
         status: "success", 
-        message: `meme at endpoint /memes/${req.params.id} modified successfully`,
+        message: `meme modified successfully`,
         data: modified
     })
 });
