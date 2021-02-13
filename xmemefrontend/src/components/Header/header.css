@@ -1,0 +1,21 @@
+.navbar-dark {
+    background-color: gray;
+} 
+.navbar {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px;
+}
+.nav {
+    font-size: 20px;
+    font-weight: 300;
+}
+.title {   
+    font-variant: normal;
+    font-weight: 300;
+    font-size: 30px;
+    color: white;
+}
+.jumbo {
+    color: #808088;
+}

@@ -1,0 +1,31 @@
+.card {
+    background: #eee;
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    color:#696969;
+}
+
+.err{
+    color: red;
+    font-size: 20px;
+    box-sizing: border-box;
+    
+}
+.author {
+    font-size: 18px;
+    margin: auto;
+}
+.time {
+    font-size: 12px;
+    margin: auto;
+}
+
+.caption {
+    color: gray;
+    margin-top: 0px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-style: italic;
+}
+.img {
+    padding: 2px 2px 2px 2px;
+}

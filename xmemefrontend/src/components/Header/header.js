@@ -1,36 +1,81 @@
 import React, { Component } from 'react';
+import './header.css';
+import { Navbar, NavbarBrand, NavbarToggler,
+     NavItem, Collapse, Nav, Jumbotron} from 'reactstrap'; 
+import {NavLink} from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
+            isNavOpen: false
         }
+
+        this.toggleNav =this.toggleNav.bind(this);
     }
+
+    toggleNav()
+    {
+        this.setState({
+            isNavOpen: !this.state.isNavOpen
+        })
+
+    }
+
     render() {
         return ( 
-            <div>
-                <nav class="navbar navbar-dark navbar-expand-sm  fixed-top">
+            <>
+                <Navbar dark className="navbar" expand="md">
                     <div className="container">
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
+                        <NavbarToggler onClick={this.toggleNav}/>
 
-                        <a className="navbar-brand " href="index.html"><img src="img/logo.png" height="30" width="41"></img></a>
+                        <NavbarBrand className="mr-auto" href="/">
+                            <img src="logo192.png" alt="logo" width="40" height="40"/>
+                        </NavbarBrand>
 
-                        <div className="collapse navbar-collapse" id="Navbar">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item"><a class="nav-link" href="index.html"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                                <li className="nav-item active"><a class="nav-link" href="#"><span class="fa fa-info fa-lg"></span> About</a></li>
-                                <li className="nav-item"><a class="nav-link" href="#"><span class="fa fa-list fa-lg"></span> Menu</a></li>
-                                <li className="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-address-card fa-lg"></span> Contact</a></li>
-                            </ul>
+                        <div className="title ml-4">
+                            Xmeme
                         </div>
 
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar className="ml-auto nav">
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/home">
+                                        <span className="fa fa-home fa-lg"></span> Home
+                                    </NavLink>
+                                </NavItem>
+
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/memes">
+                                        <span className="fa fa-list fa-lg"></span> Memes
+                                    </NavLink>
+                                </NavItem>
+
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/about">
+                                        <span className="fa fa-info fa-lg"></span> About
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
                     </div>
-                </nav>
-            </div>
+                </Navbar>
+
+                <Jumbotron>
+                    <div className="container">
+                        <div className="row jumbo ustify-content-center">
+                            <div className="col-12 col-sm-6">
+                                <h1>Xmeme Web app</h1>
+                                <p>Hey, Guys
+                                This is Yogesh Kansal prenseting this web app to keep your all memes at one place</p> 
+                            </div>
+                            <div className="col-12 col-sm">
+                                </div>
+                            </div>
+                    </div>
+                </Jumbotron>
+            </>
         );
         
     }

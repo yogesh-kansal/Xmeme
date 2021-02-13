@@ -1,0 +1,11 @@
+.label {
+    font-size: large;
+    font-family:cursive;
+    font-style: inherit;
+}
+
+.form {
+    margin: 4px auto;
+    padding: 20px 20px 20px 20px;
+    
+}
