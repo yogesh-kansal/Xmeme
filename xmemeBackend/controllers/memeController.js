@@ -6,7 +6,7 @@ var appError = require('../utils/appError');
 //controller for GET requests on /memes endpoint
 exports.get_All = catchAsync(async (req, res, next) => {
 
-    var data = await Memes.find(req.query);
+    var data = await Memes.find(req.query).sort({'timestamp': -1});
     res.statusCode =200;
     res.setHeader('Content-Type', 'application/json');
     res.json({
@@ -49,7 +49,7 @@ exports.get_At_id = catchAsync(async (req, res, next) => {
         res.setHeader('Content-Type', 'application/json');
         res.json({
             status: "success",
-            message:`meme at id ${req.params.id} fetched successfully`,
+            message:`meme at endpoint /memes/${req.params.id} fetched successfully`,
             data: data
         })
     }
@@ -60,21 +60,21 @@ exports.get_At_id = catchAsync(async (req, res, next) => {
 });
 
 //controller for PUT(modification of meme) requests on /memes endpoint
-exports.put_At_id = catchAsync(async (req, res, next) => {
+exports.patch_At_id = catchAsync(async (req, res, next) => {
 
     if(req.body.author) {
         return next(new appError('author of meme can\'t be changed', 403));
     }
+    console.log(req.body);
 
     var modified = await Memes.findByIdAndUpdate(req.params.id, {
         $set: req.body
-    },{new:true}
-    );
+    });
     res.statusCode =200;
     res.setHeader('Content-Type', 'application/json');
     res.json({
         status: "success", 
-        message: `meme at id ${req.params.id} modified successfully`,
+        message: `meme at endpoint /memes/${req.params.id} modified successfully`,
         data: modified
     })
 });
