@@ -76,7 +76,12 @@ const options = {
     servers: [
       {
         url: "http://localhost:8081",
+        description: 'local server'
       },
+      {
+        url: "https://yogesh-xmeme-backend.herokuapp.com/",
+        description: 'production server'
+      }
     ],
   },
   apis: ["./routes/*.js"],

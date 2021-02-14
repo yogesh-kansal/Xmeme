@@ -4,7 +4,7 @@ const app =experess();
 // :8081 for rest API server at http
 // :8080 for swagger 
 // :3000 for REACT client 
-const whitelist =[process.env.FRONTEND_URL,'http://localhost:3000','http://localhost:8080','http://localhost:8081'];
+/*const whitelist =[process.env.FRONTEND_URL,'http://localhost:3000','http://localhost:8080','http://localhost:8081'];
 var corsOptionsdelegates = (req,callback) => {
     var corsOptions;
 
@@ -21,10 +21,10 @@ var corsOptionsdelegates = (req,callback) => {
     }
 
 
-};
+};*/
 
 exports.cors = cors();
-exports.corsWithOptions =cors(corsOptionsdelegates);
+//exports.corsWithOptions =cors(corsOptionsdelegates);
 
 
 

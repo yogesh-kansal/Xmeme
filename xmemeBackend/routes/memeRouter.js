@@ -10,30 +10,30 @@ memeRouter.use(bodyParser.urlencoded({extended: false}));
 
 // route at /meme endpoint
 memeRouter.route('/')
-.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
+.options(cors.cors, (req, res) => { res.sendStatus(200);})
 .get(
     cors.cors,
     memeController.get_All
 )
 .post(
-    cors.corsWithOptions,
+    cors.cors,
     memeController.post
 );
 
 
 //route at /meme/:id endpoint
 memeRouter.route('/:id')
-.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
+.options(cors.cors, (req, res) => { res.sendStatus(200);})
 .get(
     cors.cors,
     memeController.get_At_id
 )
 .patch(
-    cors.corsWithOptions,
+    cors.cors,
     memeController.patch_At_id
 )
 .delete(
-    cors.corsWithOptions,
+    cors.cors,
     memeController.delete_id
 );
 
