@@ -14,6 +14,7 @@ class Memes extends Component {
           err: null,
           memes: null
         }
+        this.refreshPage = this.refreshPage.bind(this);
       }
 
     componentDidMount() {
@@ -46,6 +47,11 @@ class Memes extends Component {
         })
       })
     }
+
+    refreshPage() {
+        window.location.reload();
+        console.log("refreshed");
+      }
     
     render() {
 
@@ -94,7 +100,7 @@ class Memes extends Component {
                         {this.state.memes.map((meme) => {
                             return(
                                 <div key={meme._id} className="col-8 col-sm-3 mb-5">
-                                    <Render_meme meme={meme} ismodified={this.ismodified}/>
+                                    <Render_meme meme={meme} refreshPage={this.refreshPage}/>
                                 </div>
                             )
                         })}

@@ -25,12 +25,28 @@ class RenderForm extends Component {
                     </div>
                     <div className="row">
                         <div className="col-auto">
+                            <h3>Imp Urls</h3>
+                            <hr></hr>
+                        </div>
+                    </div>
+                    <div className="row address justify-content-center">
+                        <div className="offset-1 col-12 col-sm-8">
+                        <a href="https://yogesh-xmeme-frontend.netlify.app/">
+                            FrontEnd Url</a><br></br>
+                        <a href="https://yogesh-xmeme-backend.herokuapp.com/">
+                            BackEnd Url</a><br></br>
+                        back end API documantation at <a href="http://localhost:8080/">
+                            Docs</a><span style={{color:"red", size:"12px"}}> (can view only locally)</span>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-auto">
                             <h3>Contact</h3>
                             <hr></hr>
                         </div>
                     </div>
-                    <div className="row address">
-                        <div className="offset-1 col-6 col-sm-4">
+                    <div className="row address justify-content-center">
+                        <div className="offset-1 col-12 col-sm-8">
                             Yogesh Kansal<br />
                             <i className="fa fa-phone fa-lg"></i>: 9352284227<br />
                             <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:ykk11@iitbbs.ac.in">

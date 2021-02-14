@@ -66,7 +66,7 @@ class Header extends Component {
                     <div className="container">
                         <div className="row jumbo ustify-content-center">
                             <div className="col-12 col-sm-6">
-                                <h1>Xmeme Web app</h1>
+                                <h1>memeKeeper</h1>
                                 <p>Hey, Guys
                                 This is Yogesh Kansal prenseting this web app to keep your all memes at one place</p> 
                             </div>

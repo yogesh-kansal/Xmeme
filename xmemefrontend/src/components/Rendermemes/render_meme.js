@@ -50,7 +50,7 @@ class Render_meme extends Component {
         }
         this.toggleModal();
         console.log("data is",data);
-        alert("data is"+JSON.stringify(data));
+        //alert("data is"+JSON.stringify(data));
 
         fetch(URL.backend+"memes/"+this.props.meme._id, {
             method: 'PATCH',
@@ -65,8 +65,10 @@ class Render_meme extends Component {
             alert(JSON.stringify(res.message));
         })
         .catch(err => {
-            alert("Could not delete meme "+err.message);
+            alert("Could not modify meme "+err.message);
         })
+
+        this.props.refreshPage();
     }
 
         //for touchng th box
@@ -107,7 +109,7 @@ class Render_meme extends Component {
                     </div>
                 </CardHeader>
                 <CardBody >
-                    <CardImg  className="img" width="100%" height="100%" src={this.props.meme.url} alt="meme"/>
+                    <CardImg  className="img" width="100%" height="100%" src={this.props.meme.url} alt="meme url not working"/>
                 </CardBody>
                 <CardFooter>
                     <div className="conatiner">

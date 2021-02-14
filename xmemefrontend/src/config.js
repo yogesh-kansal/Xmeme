@@ -1,1 +1,1 @@
-exports.backend=process.env.BACKEND_URL ||'http://localhost:8081/';
+exports.backend=process.env.REACT_APP_BACKEND_URL ||'http://localhost:8081/';
