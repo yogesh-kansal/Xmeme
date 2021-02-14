@@ -17,6 +17,14 @@ Backendend locally runs on:- http://localhost:8081/
 production url for backend is:- https://yogesh-xmeme-backend.herokuapp.com/
 Swagger API documanation runs locally on:- http://localhost:8080/swagger-ui
 
-For more informations you can visit to me at ykk11@iitbbs.ac.in (Yogesh Kansal) 
+Home page of app
+![Test Image 1](./demoImages/home.png)
 
-![Test Image 1](./xmemefrontend/public/logo192.png)
+memes page of app
+![Test Image 2](./demoImages/memes.png)
+
+swagger UI documantaion
+![Test Image 3](./demoImages/swagger.png)
+
+
+For more informations you can visit to me at ykk11@iitbbs.ac.in (Yogesh Kansal) 
