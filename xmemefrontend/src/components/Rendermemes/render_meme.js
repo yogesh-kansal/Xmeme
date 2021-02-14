@@ -53,7 +53,7 @@ class Render_meme extends Component {
         console.log("data is",data);
         //alert("data is"+JSON.stringify(data));
 
-        alert(URL.backend+"memes/"+this.props.meme._id);
+        //alert(URL.backend+"memes/"+this.props.meme._id);
 
         fetch(URL.backend+"memes/"+this.props.meme._id, {
             method: 'PATCH',
