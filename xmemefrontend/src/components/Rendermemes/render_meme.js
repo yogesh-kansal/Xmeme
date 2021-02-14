@@ -9,6 +9,7 @@ class Render_meme extends Component {
         super(props);
 
         this.state = {
+            isModified: false,
             isModalOpen: false,
             url:'',
             caption:'',
@@ -52,6 +53,8 @@ class Render_meme extends Component {
         console.log("data is",data);
         //alert("data is"+JSON.stringify(data));
 
+        alert(URL.backend+"memes/"+this.props.meme._id);
+
         fetch(URL.backend+"memes/"+this.props.meme._id, {
             method: 'PATCH',
             body:JSON.stringify(data),
@@ -63,12 +66,15 @@ class Render_meme extends Component {
         .then(res => {
             console.log(res);
             alert(JSON.stringify(res.message));
+            this.setState({
+                isModified: true
+            })
         })
         .catch(err => {
             alert("Could not modify meme "+err.message);
         })
 
-        this.props.refreshPage();
+        //this.props.refreshPage();
     }
 
         //for touchng th box
@@ -94,6 +100,14 @@ class Render_meme extends Component {
 
     render() {
         const errs = this.validate(this.state.url, this.state.caption);
+
+        if(this.state.isModified) {
+
+            this.props.refreshPage();
+            this.setState({
+                isModified: false
+            })
+        }
 
         return (
             
