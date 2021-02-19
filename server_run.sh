@@ -1,14 +1,13 @@
-
 #!/bin/bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
 # for moving to directory
-cd /xmemeBackend
+cd xmemeBackend
 
 # to install required dependencies
 npm install
 
-# install nodemon to run server
-nodemon install -g
-
 # to start the server
-nodemon start
+npm start
