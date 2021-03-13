@@ -1,4 +1,4 @@
-This is a FULL STACK web App implemeted using mern stack.
+This is a FULL STACK web App implemented using mern stack.
 
 Front end of web app is implemented using REACT.
 Code for same can be found in xmemefrontend folder of this repo.
