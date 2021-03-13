@@ -24,8 +24,3 @@ Home page of app
 memes page of app
 
 ![Test Image 2](./demoImages/memes.png)
-
-swagger UI documantaion
-
-![Test Image 3](./demoImages/swagger.png)
-
