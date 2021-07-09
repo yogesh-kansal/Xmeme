@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,13 +7,15 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var http=require('http');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var memeRouter = require('./routes/memeRouter');
 
 //connecting to database 
-const url = "mongodb://localhost:27017/Xmeme";
-mongoose.connect(process.env.MONGODB_URL || url, {
+console.log(process.env.MONGODB_URL, process.env.FRONTEND_URL)
+const url =process.env.MONGODB_URL || "mongodb://localhost:27017/Xmeme";
+mongoose.connect( url, {
   useNewUrlParser: true, 
   useUnifiedTopology: true,
   useFindAndModify: false 
