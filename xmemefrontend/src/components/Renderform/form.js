@@ -12,6 +12,7 @@ class RenderForm extends Component {
             url:'',
             caption:'',
             err:'',
+            imageFile:null,
             success: false,
             touched: {
                 author:false,
@@ -28,33 +29,33 @@ class RenderForm extends Component {
 
     //for changing state of input field
     handleInputChange(e) {
-        //console.log(e.target);
-        const name = e.target.name;
-        const value = e.target.value;
-
         this.setState({
-            [name]: value
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleInputFileChange=(e)=> {
+        this.setState({
+            [e.target.name]: e.target.files[0]
         })
     }
 
     //for submitting the form
     handleSubmit(e) {
         e.preventDefault();
-       // alert("current state is "+ JSON.stringify(this.state));
 
-        var data ={
-            author: this.state.author,
-            url: this.state.url,
-            caption: this.state.caption
-        }
+        let data=new FormData();
+        data.append("author",this.state.author);
+        data.append("url",this.state.url);
+        data.append("caption",this.state.caption);
+        data.append("imageFile",this.state.imageFile);
+
+        console.log(data)
 
         fetch(URL.backend+"memes",{
             method: 'POST',
-            body:JSON.stringify(data),
-            headers: {
-                'Content-Type':'application/json'
-            }
-        })
+            body:data
+       })
         .then(res => res.json())
         .then(res => {
             console.log("res is",res);
@@ -66,7 +67,7 @@ class RenderForm extends Component {
         })
         .catch(err => {
             console.log("err is",err);
-            alert("sorty!!! your meme couldn't be posted due to "+JSON.stringify(err.message));
+            alert("sorry!!! your meme couldn't be posted due to "+JSON.stringify(err));
             this.setState({
                 success:false,
                 err:err.message,
@@ -156,6 +157,24 @@ class RenderForm extends Component {
                                         onChange={this.handleInputChange}>
                                 </Input>
                                 <FormFeedback>{errs.url}</FormFeedback>
+                            </FormGroup>
+
+                            <div className="row ml-5">
+                                <div className="col-auto ml-5 mr-auto">
+                                    OR
+                                    <hr/>
+                                </div> 
+                            </div>
+
+                            <FormGroup row>
+                                <Label htmlFor="imageFile" className="label col-auto">ImageFile</Label>
+                                <div className="col-auto">
+                                <Input type="file" id="imageFile" name="imageFile" className="form-control-file col-10"
+                                        onChange={this.handleInputFileChange}
+                                            valid={true}>
+                                </Input>
+
+                                </div>
                             </FormGroup>
 
                             <FormGroup row>

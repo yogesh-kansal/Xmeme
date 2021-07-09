@@ -18,6 +18,7 @@ class Memes extends Component {
       }
 
     componentDidMount() {
+        console.log(URL.backend);
 
       fetch(URL.backend+"memes")
       .then(res => {
