@@ -2,7 +2,6 @@ var Memes = require('../models/meme');
 var catchAsync = require('../utils/catchAsync');
 var appError = require('../utils/appError');
 
-
 //controller for GET requests on /memes endpoint
 exports.get_All = catchAsync(async (req, res, next) => {
 
@@ -18,23 +17,21 @@ exports.get_All = catchAsync(async (req, res, next) => {
 
 //controller for POST requests on /memes endpoint
 exports.post = catchAsync(async (req, res, next) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    console.log(data,req.file)
 
-    var pre = await Memes.findOne(req.body);
-    console.log(req.body);
-
-    if(!pre) {
-        var meme = await Memes.create(req.body);
-        res.statusCode =200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({
-            status: "success",
-            message: "meme posted successfully",
-            data: meme
-        })
+    if(req.file) {
+        data.url='http://localhost:8081/images/'+req.file.filename;
     }
-    else {
-        return next(new appError('Same data already exists',403));
-    }  
+    
+    var meme = await Memes.create(data);
+    res.statusCode =200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({
+        status: "success",
+        message: "meme posted successfully",
+        data: meme
+    })
 });
 
 

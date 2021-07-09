@@ -1,12 +1,8 @@
 var express = require('express');
 const memeController = require('../controllers/memeController');
-const bodyParser = require('body-parser');
 const cors = require('./cors');
-
-
 var memeRouter = express.Router();
-memeRouter.use(bodyParser.json());
-memeRouter.use(bodyParser.urlencoded({extended: false}));
+var upload=require('../utils/multerSetup');
 
 // route at /meme endpoint
 memeRouter.route('/')
@@ -15,10 +11,7 @@ memeRouter.route('/')
     cors.cors,
     memeController.get_All
 )
-.post(
-    cors.cors,
-    memeController.post
-);
+.post(cors.cors,upload.single('imageFile'), memeController.post);
 
 
 //route at /meme/:id endpoint
