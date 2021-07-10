@@ -38,6 +38,7 @@ class RenderForm extends Component {
         this.setState({
             [e.target.name]: e.target.files[0]
         })
+        console.log(e.target,this.state.imageFile)
     }
 
     //for submitting the form
@@ -151,31 +152,31 @@ class RenderForm extends Component {
                                 <Input type="text" id="url" name="url"  className="col-12 col-sm-9"
                                         placeholder="URL for your meme"
                                         value={this.state.url}
-                                        valid={errs.url==''}
-                                        invalid={errs.url!==''}
+                                        valid={errs.url=true}
                                         onBlur={this.handleTouch('url')}
                                         onChange={this.handleInputChange}>
                                 </Input>
                                 <FormFeedback>{errs.url}</FormFeedback>
                             </FormGroup>
 
-                            <div className="row ml-5">
-                                <div className="col-auto ml-5 mr-auto">
+                            <div className="row mt-4 justify-content-center">
+                                <div className="col-4">
                                     OR
-                                    <hr/>
                                 </div> 
                             </div>
 
-                            <FormGroup row>
-                                <Label htmlFor="imageFile" className="label col-auto">ImageFile</Label>
-                                <div className="col-auto">
-                                <Input type="file" id="imageFile" name="imageFile" className="form-control-file col-10"
-                                        onChange={this.handleInputFileChange}
-                                            valid={true}>
-                                </Input>
-
+                            <div class="file-input row mb-3 mt-3 justify-content-center">
+                                <div className="col-9 col-lg-6">
+                                <input type="file" id="imageFile" name="imageFile" className="file"
+                                onChange={this.handleInputFileChange}>
+                                    </input>
+                                <label htmlFor="imageFile" className="">
+                                    Select file
+                                    <span class="file-name">{this.state.imageFile? this.state.imageFile.name:''}</span>
+                                </label>
                                 </div>
-                            </FormGroup>
+                                
+                            </div>
 
                             <FormGroup row>
                                 <Label htmlFor="caption" className="label col-12 col-sm-6">Caption</Label>

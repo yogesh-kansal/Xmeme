@@ -26,7 +26,7 @@ class Header extends Component {
     render() {
         return ( 
             <>
-                <Navbar dark className="navbar" expand="md">
+                <Navbar dark className="navbar" expand="md" fixed="top" >
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav}/>
 
@@ -35,7 +35,7 @@ class Header extends Component {
                         </NavbarBrand>
 
                         <div className="title ml-4">
-                            Xmeme
+                            memeKeeper
                         </div>
 
                         <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -62,19 +62,7 @@ class Header extends Component {
                     </div>
                 </Navbar>
 
-                <Jumbotron>
-                    <div className="container">
-                        <div className="row jumbo ustify-content-center">
-                            <div className="col-12 col-sm-6">
-                                <h1>memeKeeper</h1>
-                                <p>Hey, Guys
-                                This is Yogesh Kansal prenseting this web app to keep your all memes at one place</p> 
-                            </div>
-                            <div className="col-12 col-sm">
-                                </div>
-                            </div>
-                    </div>
-                </Jumbotron>
+                <div className="space"></div>
             </>
         );
         
