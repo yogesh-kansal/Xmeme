@@ -4,6 +4,8 @@ import Render_meme from './render_meme';
 import './memes.css'
 import URL from '../../config';
 import sort from 'fast-sort';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Memes extends Component {
     constructor(props) {
@@ -14,21 +16,13 @@ class Memes extends Component {
           err: null,
           memes: null
         }
-        this.refreshPage = this.refreshPage.bind(this);
       }
 
     componentDidMount() {
-        console.log(URL.backend);
 
-      fetch(URL.backend+"memes")
+      axios.get(URL.backend+"memes")
       .then(res => {
-        if(res.ok)
-          return res;
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log("res is",res);
-        var data = res.data;
+        var data = res.data.data;
 
         //to sort data is descending order
         sort(data).desc(u => u.updatedAt);
@@ -44,71 +38,57 @@ class Memes extends Component {
   
         this.setState({
             isLoading: false,
-            err: err.message,
+            err: err.response?err.response.data:err.message,
         })
       })
     }
-
-    refreshPage() {
-        window.location.reload();
-        console.log("refreshed");
-      }
     
     render() {
-
-        if(this.state.isLoading) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <div className="col-auto">
-                            <h3>memes</h3>
-                            <hr></hr>
-                        </div>
+        return(
+            <div className="container">
+                <div className="row mb-5">
+                    <div className="col-auto label">
+                        <h3>MEME STREAM</h3>
+                        <hr></hr>
                     </div>
+                    <div className="col-auto ml-auto mr-5">
+                        <Link to={'/memes/new'}>
+                            <button className="btn btn-outline-primary">POST NEW MEME</button>
+                        </Link>
+                    </div>
+                </div>
 
+                {
+                this.state.isLoading
+                ?
                     <div className="row">
                         <LoadingSpinner />
                     </div>
+                :
+                this.state.err
+                ?
+                <div className="row label justify-content-center mt-5">
+                    <h3>Something Went wrong....</h3>
                 </div>
-            )
-        }
-        else if(this.state.err) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <div className="col-auto">
-                            <h3>memes</h3>
-                            <hr></hr>
+                :
+                this.state.memes && this.state.memes.length
+                    ?
+                        <div className="row mt-5">
+                            {this.state.memes.map((meme) => {
+                                return(
+                                    <div key={meme._id} className="col-8 col-sm-6 col-md-4 mb-5">
+                                        <Render_meme meme={meme}/>
+                                    </div>
+                                )
+                            })}
                         </div>
-                    </div>
-
-                    <div className="row justify-content-center err">
-                        {this.state.err}
-                    </div>
-                </div>
-            )
-        }
-        else if(this.state.memes) {
-            return (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-auto">
-                            <h3>memes</h3>
-                            <hr></hr>
+                    :
+                        <div className="row label justify-content-center mt-5">
+                            <h3>Don't have any memes right now!!!</h3>
                         </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        {this.state.memes.map((meme) => {
-                            return(
-                                <div key={meme._id} className="col-8 col-sm-3 mb-5">
-                                    <Render_meme meme={meme} refreshPage={this.refreshPage}/>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            );
-        }
+                }
+            </div>
+        );
     }
 }
 

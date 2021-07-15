@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import {Card, CardImg, CardBody, CardHeader, Button, 
-    Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, CardFooter, FormFeedback} from 'reactstrap';
+import { Button, 
+    Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input,  FormFeedback} from 'reactstrap';
 import './memes.css'
 import URL from '../../config';
+import axios from 'axios';
 
 class Render_meme extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isModified: false,
             isModalOpen: false,
+            imageFile:null,
             url:'',
             caption:'',
             touched: {
@@ -19,6 +20,7 @@ class Render_meme extends Component {
             }
         }
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleModify = this.handleModify.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validate = this.validate.bind(this);
@@ -27,7 +29,10 @@ class Render_meme extends Component {
 
     toggleModal() {
         this.setState({
-            isModalOpen: !this.state.isModalOpen
+            isModalOpen: !this.state.isModalOpen,
+            user:'',
+            usercaption:'',
+            imageFile:null
         })
     }
 
@@ -37,115 +42,129 @@ class Render_meme extends Component {
         this.setState({
             [name]: value
         })
-        console.log("current state is ",this.state);
+    }
+
+    handleInputFileChange=(e)=> {
+        this.setState({
+            [e.target.name]: e.target.files[0]
+        })
+    }
+
+    //for touchng th box
+    handleTouch =(feild) =>(e) => {
+        this.setState({
+            touched: {...this.state.touched, [feild]:true}
+        });
+    }
+    
+    //validating the form
+    validate(caption) {
+        const err ={
+            caption:''
+        }
+        if(this.state.touched.caption && caption.length>20)
+            err.caption='feild is optional but if you do then at-max 20 char length is acceptable'; 
+
+        return err;
     }
 
     handleModify(e) {
         e.preventDefault();
-        var data={};
-        if(this.state.url.length) {
-            data.url = this.state.url
-        }
-        if(this.state.caption.length) {
-            data.caption = this.state.caption
-        }
+        let data=new FormData();
+        console.log(this.state)
+        
+        if(this.state.url.length)
+            data.append("url",this.state.url);
+        if(this.state.caption.length)
+            data.append("caption",this.state.caption);
+        if(this.state.imageFile)
+            data.append("imageFile",this.state.imageFile);
+
         this.toggleModal();
         console.log("data is",data);
-        //alert("data is"+JSON.stringify(data));
 
-        //alert(URL.backend+"memes/"+this.props.meme._id);
-
-        fetch(URL.backend+"memes/"+this.props.meme._id, {
-            method: 'PATCH',
-            body:JSON.stringify(data),
+        axios.patch(URL.backend+"memes/"+this.props.meme._id, data, {
             headers: {
-                'Content-Type':'application/json'
+                'Authorization':'Bearer '+localStorage.getItem('accesstoken')
             }
         })
-        .then(res => res.json())
         .then(res => {
             console.log(res);
-            alert(JSON.stringify(res.message));
-            this.setState({
-                isModified: true
-            })
+            alert(res.data.message);
+            this.props.updateMeme(this.props.meme, res.data.data);
         })
         .catch(err => {
-            alert("Could not modify meme "+err.message);
+            if(err.response)
+                alert(err.response.data)
+            else
+                alert("Could not modify meme "+err.message);
         })
-
-        //this.props.refreshPage();
     }
 
-        //for touchng th box
-        handleTouch =(feild) =>(e) => {
-            this.setState({
-                touched: {...this.state.touched, [feild]:true}
-            });
-        }
-    
-        //validating the form
-        validate(url, caption) {
-            const err ={
-                url:'',
-                caption:''
+    handleDelete() {
+        console.log('called')
+        axios.delete(URL.backend+"memes/"+this.props.meme._id, {
+            headers: {
+                'Authorization':'Bearer '+localStorage.getItem('accesstoken')
             }
-            if(this.state.touched.url && !url.length)
-                err.url='feild is optional';
-            if(this.state.touched.caption && caption.length>20)
-                err.caption='feild is optional but if you do then at-max 20 char length is acceptable'; 
-    
-            return err;
-        }
+        })
+        .then(res => {
+            alert(res.data.message);
+            this.props.deleteMeme(this.props.meme);
+        })
+        .catch(err => {
+            if(err.response)
+                alert(err.response.data)
+            else
+                alert("Could not modify meme "+err.message);
+        })
+    }
 
     render() {
-        const errs = this.validate(this.state.url, this.state.caption);
-
-        if(this.state.isModified) {
-
-            this.props.refreshPage();
-            this.setState({
-                isModified: false
-            })
-        }
+        const errs = this.validate(this.state.caption);
 
         return (
             
         <>
-            <Card className="card" style={{width:"100%", height:"100%"}} >
-                <CardHeader style={{background:"#555", color:"white"}}
-                    > 
+            <div class="card">
+                <div className="card-header mt-1 mx-1" style={{background:"#555", color:"white"}}>
+                    <div className="row align-items-center">
+                        <h5 className="col-auto ml-2">{this.props.meme.author}</h5>
+                                        
+                        <div className="col-auto ml-auto">
+                            <button className="btn btn-outline-light mr-2" onClick={() =>{
+                                if(this.props.user) return this.toggleModal()
+                                else return alert('To modify meme visit to ypur profile page!!!')}}><span className="fa fa-pencil fa-lg"></span></button>      
+                            <button className="btn btn-outline-light" onClick={() =>{
+                                if(this.props.user) return this.handleDelete()
+                                else return alert('To modify meme visit to ypur profile page!!!')}}><span className="fa fa-trash fa-lg"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body mt-0">
                     <div className="row">
-                        <div className="mr-auto author">{this.props.meme.author}</div>
-                        <div className="ml-auto time">
-                            {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.updatedAt)))} 
+                        <img className="meme_img" src={this.props.meme.url} alt="Admin" />
+                         </div>
+                        
+                        <div class="row mt-3">
+                            <p class="mb-1 p-1 caption"> {this.props.meme.caption}</p>
+                        </div>
+                </div>
+
+                <div className="card-footer bg-white text-secondary">
+                    <div className="row">
+                        <div className="col-12 ml-auto text-right">
+                            posted At: {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.createdAt)))} 
                         </div>
                     </div>
-                </CardHeader>
-                <CardBody >
-                    <CardImg  className="img" width="100%" height="100%" src={this.props.meme.url} alt="meme url not working"/>
-                </CardBody>
-                <CardFooter>
-                    <div className="conatiner">
-                        <div className="row mb-1 caption">
-                            <div className="col-auto">
-                                {this.props.meme.caption}
-                            </div>
-                        </div>
-                        <div className="row time2">
-                            <div className="ml-auto">
-                                posted on: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
-                            </div>
-                        </div>
-                        <div className="row mt-2">
-                            <div className="ml-auto">
-                            <Button type="" color="secondary" className="mr-1" 
-                               onClick={this.toggleModal}>Modify</Button>
-                            </div>
+                    <div className="row">
+                        <div className="col-12 text-right mt-1">
+                            updated At: {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
                         </div>
                     </div>
-                </CardFooter>
-            </Card>
+                </div>
+            </div>
                                          
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal} charCode="x">
@@ -160,16 +179,26 @@ class Render_meme extends Component {
                         </FormGroup>
                         
                         <FormGroup>
-                            <Label htmlFor="url">Modified URL</Label>
+                            <Label htmlFor="url">URL</Label>
                             <Input type="text" id="url" name="url" 
                                 value={this.state.url}
-                                valid={errs.url==''}
-                                invalid={errs.url!==''}
-                                onBlur={this.handleTouch('url')}
+                                valid={true}
                                 onChange={this.handleChange} />
-                                <FormFeedback>{errs.url}</FormFeedback>
                         </FormGroup>
-        
+
+                        <div className="row justify-content-center">
+                            <div className="col-auto">
+                                OR
+                                <hr/>
+                            </div>
+                        </div>
+
+                        <FormGroup>
+                            <Label htmlFor="imageFile">File</Label>
+                            <Input type="file" id="imageFile" name="imageFile" 
+                                onChange={this.handleInputFileChange} />
+                        </FormGroup>
+
                         <FormGroup>
                             <Label htmlFor="caption">Modified Caption</Label>
                             <Input type="caption" id="caption" name="caption" 
