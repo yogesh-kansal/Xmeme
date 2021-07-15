@@ -1,0 +1,31 @@
+.heading {
+    margin-top: 30px;
+}
+
+.label {
+    font-size: 20px;
+    font-family: cursive;
+    font-style: inherit;
+    color: #808088;
+}
+
+.signup {
+    margin: 10px auto;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 15px;
+    box-shadow: 4px 4px 0px 0px #888888;
+    background: white;
+}
+
+#link {
+    text-decoration: none;
+}
+.sub {
+    font-size: 20px;
+
+}
+
+.forgot {
+    margin: 20% auto;
+}

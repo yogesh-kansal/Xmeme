@@ -24,6 +24,7 @@ class Header extends Component {
     }
 
     render() {
+        console.log(this.props);
         return ( 
             <>
                 <Navbar dark className="navbar" expand="md" fixed="top" >
@@ -47,16 +48,32 @@ class Header extends Component {
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink className="nav-link" to="/memes">
-                                        <span className="fa fa-list fa-lg"></span> Memes
-                                    </NavLink>
-                                </NavItem>
-
-                                <NavItem>
                                     <NavLink className="nav-link" to="/about">
                                         <span className="fa fa-info fa-lg"></span> About
                                     </NavLink>
                                 </NavItem>
+
+                                <li className="nav-item dropdown ">
+                                    <div class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                                        <span className="">Auth</span>
+                                    </div>
+
+                                    <ul className="dropdown-menu ml-3">
+                                    {
+                                        !this.props.isloggedin
+                                        ?  
+                                        <>  
+                                            <NavLink className="dropdown-item nav-link" to="/signup"><span className="fa mx-1 fa-sign-in fa-lg"></span> Signup</NavLink>
+                                            <NavLink className="dropdown-item nav-link" to="/login"><span className="fa mx-1 fa-sign-in fa-lg"></span> Login</NavLink>
+                                        </>
+                                        :
+                                        <>  
+                                            <NavLink className="dropdown-item nav-link" to="/user"><span className="fa mx-1 fa-id-badge fa-lg"></span> Profile</NavLink>
+                                            <NavLink className="dropdown-item nav-link" to="/" onClick={this.props.logOut}><span className="fa mx-1 fa-sign-out fa-lg"></span> Sign out</NavLink>
+                                        </>
+                                    }
+                                    </ul>
+                                </li>
                             </Nav>
                         </Collapse>
                     </div>

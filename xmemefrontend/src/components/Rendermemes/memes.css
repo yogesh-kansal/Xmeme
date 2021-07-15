@@ -1,12 +1,26 @@
 .card {
-    color:#696969;
-    font-size: large;
-    font-family: Gill Sans Extrabold, cursive;
-    box-shadow: 1px 1px 2px 2px #ccc;
-    border: 1px solid #eee;
-    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .5rem;
+}
 
-
+.meme_img {
+    width: 100%;
+    height: 250px;
+}
+.card-header {
+    border-radius: 10px;
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
 }
 
 .err{

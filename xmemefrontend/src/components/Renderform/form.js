@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, FormGroup, Label, Input,Button, FormFeedback} from 'reactstrap';
 import './form.css';
 import URL from '../../config';
+import axios from 'axios';
 
 class RenderForm extends Component {
     constructor(props) {
@@ -50,14 +51,14 @@ class RenderForm extends Component {
         data.append("url",this.state.url);
         data.append("caption",this.state.caption);
         data.append("imageFile",this.state.imageFile);
+        if(this.props.user)
+            data.append('userId',this.props.user._id);
+        else
+            data.append('userId','');
 
         console.log(data)
 
-        fetch(URL.backend+"memes",{
-            method: 'POST',
-            body:data
-       })
-        .then(res => res.json())
+       axios.post(URL.backend+"memes", data)
         .then(res => {
             console.log("res is",res);
             alert("your meme has been posted successfully");
@@ -65,13 +66,17 @@ class RenderForm extends Component {
                 success:true,
                 err:null,
             })
+            this.props.history.push('/home');
         })
         .catch(err => {
             console.log("err is",err);
-            alert("sorry!!! your meme couldn't be posted due to "+JSON.stringify(err));
+            if(err.response)
+                alert("sorry!!! your meme couldn't be posted due to "+err.response.data);
+            else
+                alert("sorry!!! your meme couldn't be posted due to "+err.message);
             this.setState({
                 success:false,
-                err:err.message,
+                err:err.response.data|| err.message,
             })
         });
         //console.log(this.state);
@@ -84,6 +89,7 @@ class RenderForm extends Component {
         this.setState({
             author:'',
             url:'',
+            imageFile:null,
             caption:'',
             touched: {
                 author: false,

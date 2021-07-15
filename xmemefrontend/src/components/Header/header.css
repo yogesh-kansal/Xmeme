@@ -20,3 +20,25 @@
 .space {
     margin-top: 100px;
 }
+
+.dropdown-menu {
+    background: gray !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: 200;
+    color: rgb(255,255,255,.55) !important;
+}
+
+.dropdown-item {
+    text-decoration: none !important;
+    color: rgb(255,255,255,.55) !important;
+    background: gray !important;
+}
+.dropdown-item:hover {
+    color: #fff !important;
+
+}
+
+.fa-sign-out {
+    transform: rotate(180deg);
+}
