@@ -1,11 +1,12 @@
 require('dotenv').config()
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-var http=require('http');
+const http=require('http');
+const cors=require('cors');
+const appError=require('./utils/appError');
 
 
 var indexRouter = require('./routes/index');
@@ -29,6 +30,7 @@ mongoose.connection.once('open', () => {
 
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,57 +43,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/memes', memeRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.all('*', (req,res,next) => {
+  next(new appError(`Can't reach ${req.originalUrl} on this server!!`, 404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err.message);
 });
 
+
 module.exports =app;
-
-
-//swagger
-//importing swagger depandencies
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-const options = {
-  swaggerDefinition: {
-    openapi: "3.0.1",
-    info: {
-      title: "Swagger for Xmeme",
-      description:"This is documententaion for xmeme web App using Swagger API, presented by Yogesh kansal",
-      version: "1.0.0",
-    },
-    servers: [
-      {
-        url: "http://localhost:8081",
-        description: 'local server'
-      },
-      {
-        url: "https://yogesh-xmeme-backend.herokuapp.com/",
-        description: 'production server'
-      }
-    ],
-  },
-  apis: ["./routes/*.js"],
-};
-const swaggerSpecs = swaggerJsdoc(options);
-var swaggerApp = express();
-var swaggerserver = http.createServer(swaggerApp);
-swaggerserver.listen(8080);
-swaggerApp.use(logger('dev'));
-swaggerApp.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));

@@ -13,6 +13,9 @@ const memeSchema = new Schema({
     caption: {
         type: String,
         required: true
+    },
+    userId: {
+        type: String,
     }
 },
 {
