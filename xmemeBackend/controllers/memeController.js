@@ -23,7 +23,7 @@ exports.post = catchAsync(async (req, res, next) => {
     console.log(req.file)
 
     if(req.file) {
-        data.url='http://localhost:8081/images/'+req.file.filename;
+        data.url=process.env.BACKEND_URL+req.file.filename;
     }
     
     var meme = await Memes.create(data);
@@ -69,7 +69,7 @@ exports.patch_At_id = catchAsync(async (req, res, next) => {
     console.log(req.file)
 
     if(req.file) {
-        data.url='http://localhost:8081/images/'+req.file.filename;
+        data.url=process.env.BACKEND_URL+req.file.filename;
     }
     console.log(data);
 
