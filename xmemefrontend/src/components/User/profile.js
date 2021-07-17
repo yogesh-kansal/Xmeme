@@ -49,7 +49,7 @@ class Profile extends Component {
         let memes=this.state.memes;
         let index=memes.indexOf(prev);
         console.log(index)
-        memes.splice(index);
+        memes.splice(index,1);
         this.setState({
             memes:memes
         })

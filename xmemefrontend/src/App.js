@@ -76,7 +76,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
+        <div className="wrap">
         <BrowserRouter>
           <Header isloggedin={this.state.isloggedin} logOut={this.logOut}/>
           {
@@ -100,8 +101,9 @@ class App extends Component {
               <Redirect to="/home"/>
             </Switch>
           }
-          <Footer />
         </BrowserRouter>
+        </div>
+        <Footer/>
       </div>
     );
   }
