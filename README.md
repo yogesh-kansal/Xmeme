@@ -1,26 +1,32 @@
-This is a FULL STACK web App implemented using mern stack.
+# Xmeme
+`Xmeme` is a MERN stack web application where user of app can post their memes on plateform, It can be posted using link to photo or in file format.<br/>
+By default all memes will be posted publically. App provides functionality to user authentication. User can signup using Email Id and login by using same. after loggin user can see his/her posted meems, can modify his/her details and password.<br/>
+A user can modify memes or delete if user have posted perticular meme by his/her account. Publically posted memes cannot be modified or deleted.<br/>
+App supports JWT based authorization.
+`more details about use are provided in repective folders.`
+    
+    - Frontend URL:- http://loclhost:3000
+    - BAckend URL:- http://localhost:8081
 
-Front end of web app is implemented using REACT.
-Code for same can be found in xmemefrontend folder of this repo.
-react component are implemeted in /xmemefrontned/coponents folder.
-It contains Header, Footer, About, RenderForm, Rendermemes, LodingSpinner subfolders containing js & cs ocdes.
-FrontEnd is deployed using netlify web service.
-Front end locally runs on:- http://localhost:3000/
-production url for frontend is:- https://yogesh-xmeme-frontend.netlify.app/
+## Technologies
+- `HTML/CSS`, `Js`, `React.js` , `Bootstrap` for frontend implementation.<br/>
+- `Node.js`, `Express.js`, `Mongodb, `Mongoose` for backend implementation.
 
-Backend end of web app is implemented using node.js, express.js, mongoDB.
-Code for same can be found in xmemefrontend folder of this repo.
-Controllers folder contains memeController.js file for routes.
-models folder contains model for memes
-routes folder contains memeRuter & cors.js file.
-Backendend locally runs on:- http://localhost:8081/
-production url for backend is:- https://yogesh-xmeme-backend.herokuapp.com/
-
-
-Home page of app
-
-![Test Image 1](./demoImages/home.png)
-
-memes page of app
-
-![Test Image 2](./demoImages/memes.png)
+## Demo images
+- Home
+![Home](./demoImages/home.png)
+<br/>
+- Post New Meme
+![Post New Meme](./demoImages/post_meme.png)
+<br/>
+- User Profile
+![User Profile](./demoImages/profile.png)
+<br/>
+- Edit Profile
+![Edit Profile](./demoImages/edit_profile.png)
+<br/>
+- Sign Up
+![Sign Up](./demoImages/signup_page.png)
+<br/>
+- Login
+![Login](./demoImages/login_page.png)
