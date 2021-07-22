@@ -3,6 +3,8 @@ import {Form, FormGroup, Label, Input,Button, FormFeedback} from 'reactstrap';
 import './form.css';
 import URL from '../../config';
 import axios from 'axios';
+import io from 'socket.io-client';
+let socket;
 
 class RenderForm extends Component {
     constructor(props) {
@@ -60,6 +62,12 @@ class RenderForm extends Component {
 
        axios.post(URL.backend+"memes", data)
         .then(res => {
+            
+            //for broadcast this post for others.
+            socket = io(URL.backend);
+            socket.emit('post');
+            socket.off();
+
             console.log("res is",res);
             alert("your meme has been posted successfully");
             this.setState({

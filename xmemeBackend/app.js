@@ -14,7 +14,6 @@ var usersRouter = require('./routes/users');
 var memeRouter = require('./routes/memeRouter');
 
 //connecting to database 
-console.log(process.env.MONGODB_URL, process.env.FRONTEND_URL)
 const url =process.env.MONGODB_URL || "mongodb://localhost:27017/Xmeme";
 mongoose.connect( url, {
   useNewUrlParser: true, 

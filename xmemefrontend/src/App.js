@@ -26,7 +26,6 @@ class App extends Component {
 
   componentDidMount()
   {
-    console.log('called nat');
     let accesstoken=localStorage.getItem('accesstoken');
     if(accesstoken) {
       axios.get(URL.backend+'user/refresh',{

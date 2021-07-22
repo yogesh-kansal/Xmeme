@@ -4,6 +4,8 @@ import { Button,
 import './memes.css'
 import URL from '../../config';
 import axios from 'axios';
+import io from 'socket.io-client';
+let socket;
 
 class Render_meme extends Component {
     constructor(props) {
@@ -92,6 +94,11 @@ class Render_meme extends Component {
             console.log(res);
             alert(res.data.message);
             this.props.updateMeme(this.props.meme, res.data.data);
+            //for broadcast this post for others.
+            socket = io(URL.backend);
+            socket.emit('post');
+            socket.off();
+
         })
         .catch(err => {
             if(err.response)
@@ -111,6 +118,10 @@ class Render_meme extends Component {
         .then(res => {
             alert(res.data.message);
             this.props.deleteMeme(this.props.meme);
+            //for broadcast this post for others.
+            socket = io(URL.backend);
+            socket.emit('post');
+            socket.off();
         })
         .catch(err => {
             if(err.response)

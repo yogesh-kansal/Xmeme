@@ -6,13 +6,16 @@ import URL from '../../config';
 import sort from 'fast-sort';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
+
+let socket;
 
 class Memes extends Component {
     constructor(props) {
         super(props);
     
         this.state={
-          isLoading: true,
+          isLoading: !true,
           err: null,
           memes: null
         }
@@ -41,6 +44,26 @@ class Memes extends Component {
             err: err.response?err.response.data:err.message,
         })
       })
+
+        socket = io(URL.backend);
+        socket.on('modified',(res) => {
+            let {err,data}=res;
+            if(err) {
+                this.setState({
+                    err: err.response?err.response.data:err.message,
+                })
+            }
+            else {
+                sort(data).desc(u => u.updatedAt);
+                this.setState({
+                    memes: data.slice(0,100),
+                })
+            }
+        })
+    }
+
+    componentWillUnmount() {
+        socket.off();
     }
     
     render() {

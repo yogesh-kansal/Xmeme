@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
 const appError = require('../utils/appError');
-const {OAuth2Client}=require('google-auth-library');
-const clientId='dcd';
-const client=new OAuth2Client(clientId);
+// const {OAuth2Client}=require('google-auth-library');
+// const clientId='dcd';
+// const client=new OAuth2Client(clientId);
 
 exports.signup=catchAsync(async (req,res,next) => {
 
