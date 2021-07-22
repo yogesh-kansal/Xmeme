@@ -15,7 +15,7 @@ class Memes extends Component {
         super(props);
     
         this.state={
-          isLoading: !true,
+          isLoading: true,
           err: null,
           memes: null
         }
