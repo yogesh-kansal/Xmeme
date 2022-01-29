@@ -58,20 +58,20 @@ class Profile extends Component {
 
     render() {
         const user=this.props.user;
-      //  console.log(this.props)
+      console.log(this.props)
         return (
-            <div class="container">
-                <div class="main-body">
+            <div className="container">
+                <div className="main-body">
 
-                    <div class="row gutters-sm">
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex flex-column align-items-center text-center">
+                    <div className="row gutters-sm">
+                        <div className="col-md-4 mb-3">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="d-flex flex-column align-items-center text-center">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
-                                        <div class="mt-3">
+                                        <div className="mt-3">
                                             <h4>Memer</h4>
-                                            <p class="text-secondary mb-1">Full Stack Developer</p>
+                                            <p className="text-secondary mb-1">Full Stack Developer</p>
                                         </div>
                                     </div>
                                 </div>

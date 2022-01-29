@@ -1,0 +1,24 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+  }
+  
+.messageTop{
+    display: flex;
+    flex-direction: column;
+}
+  
+.messageText{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #5e72e4;
+    color: white;
+    max-width: 350px;
+}
+  
+.commentBox {
+    height: 350px;
+    overflow-y: scroll;
+    background-color:#f4f5f7;
+}

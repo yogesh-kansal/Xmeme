@@ -47,15 +47,15 @@ class Header extends Component {
                                     </NavLink>
                                 </NavItem>
 
-                                <NavItem>
+                                {/* <NavItem>
                                     <NavLink className="nav-link" to="/about">
                                         <span className="fa fa-info fa-lg"></span> About
                                     </NavLink>
-                                </NavItem>
+                                </NavItem> */}
 
                                 <li className="nav-item dropdown ">
-                                    <div class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
-                                        <span className="">Auth</span>
+                                    <div className="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                                        <span className=""><span className="fa fa-user fa-lg"></span></span>
                                     </div>
 
                                     <ul className="dropdown-menu ml-3">

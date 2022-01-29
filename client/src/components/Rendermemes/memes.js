@@ -65,6 +65,25 @@ class Memes extends Component {
     componentWillUnmount() {
         socket.off();
     }
+
+    updateMeme=(prev,meme)=> {
+        let memes=this.state.memes;
+        let index=memes.indexOf(prev);
+        memes[index]=meme;
+        this.setState({
+            memes:memes
+        })
+    }
+    
+    deleteMeme=(prev)=> {
+        let memes=this.state.memes;
+        let index=memes.indexOf(prev);
+        console.log(index)
+        memes.splice(index,1);
+        this.setState({
+            memes:memes
+        })
+    }
     
     render() {
         return(
@@ -84,7 +103,7 @@ class Memes extends Component {
                 {
                 this.state.isLoading
                 ?
-                    <div className="row">
+                    <div className="row justify-content-center">
                         <LoadingSpinner />
                     </div>
                 :
@@ -99,8 +118,8 @@ class Memes extends Component {
                         <div className="row mt-5">
                             {this.state.memes.map((meme) => {
                                 return(
-                                    <div key={meme._id} className="col-8 col-sm-6 col-md-4 mb-5">
-                                        <Render_meme meme={meme}/>
+                                    <div key={meme._id} className="col-12 col-sm-6 col-md-4 mb-5">
+                                        <Render_meme meme={meme} user={this.props.user} updateMeme={this.updateMeme} deleteMeme={this.deleteMeme}/>
                                     </div>
                                 )
                             })}

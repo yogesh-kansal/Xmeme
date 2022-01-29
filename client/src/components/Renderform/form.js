@@ -158,7 +158,7 @@ class RenderForm extends Component {
                                         onBlur={this.handleTouch('author')}
                                         onChange={this.handleInputChange}>
                                 </Input>
-                                <FormFeedback>{errs.author}</FormFeedback>
+                                <FormFeedback><>{errs.author}</></FormFeedback>
                             </FormGroup>
 
                             <FormGroup row>
@@ -170,7 +170,7 @@ class RenderForm extends Component {
                                         onBlur={this.handleTouch('url')}
                                         onChange={this.handleInputChange}>
                                 </Input>
-                                <FormFeedback>{errs.url}</FormFeedback>
+                                <FormFeedback><>{errs.url}</></FormFeedback>
                             </FormGroup>
 
                             <div className="row mt-4 justify-content-center">
@@ -179,14 +179,14 @@ class RenderForm extends Component {
                                 </div> 
                             </div>
 
-                            <div class="file-input row mb-3 mt-3 justify-content-center">
+                            <div className="file-input row mb-3 mt-3 justify-content-center">
                                 <div className="col-9 col-lg-6">
                                 <input type="file" id="imageFile" name="imageFile" className="file"
                                 onChange={this.handleInputFileChange}>
                                     </input>
                                 <label htmlFor="imageFile" className="">
                                     Select file
-                                    <span class="file-name">{this.state.imageFile? this.state.imageFile.name:''}</span>
+                                    <span className="file-name">{this.state.imageFile? this.state.imageFile.name:''}</span>
                                 </label>
                                 </div>
                                 
@@ -202,7 +202,7 @@ class RenderForm extends Component {
                                         onBlur={this.handleTouch('caption')}
                                         onChange={this.handleInputChange}>
                                 </Input>
-                                <FormFeedback>{errs.caption}</FormFeedback>
+                                <FormFeedback><>{errs.caption}</></FormFeedback>
                             </FormGroup>
 
                             <FormGroup row>
@@ -210,7 +210,7 @@ class RenderForm extends Component {
                                     <Button type="submit" color="primary" outline>
                                         POST meme
                                     </Button>
-                                    <Button className="ml-2" type="reset" color="secondary" outline='true' onClick={this.handleReset}>
+                                    <Button className="ml-2" type="reset" color="secondary" outline onClick={this.handleReset}>
                                         Reset Form
                                     </Button>
                                 </div>

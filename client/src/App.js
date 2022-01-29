@@ -12,10 +12,10 @@ import Footer from './components/Footer/footer';
 
 import Form from './components/Renderform/form';
 import Memes from './components/Rendermemes/memes';
-import About from './components/About/about';
 
 import Profile from './components/User/profile';
 import Edit from './components/User/edit';
+import SingleMeme from './components/SingleMeme/singleMeme';
 
 class App extends Component {
   state={
@@ -85,19 +85,18 @@ class App extends Component {
             <Switch>
               <Route path="/home" component={Memes}/>
               <Route path="/memes/new" component={Form}/>
-              <Route path="/about" component={About}/>
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={(props) => <Login {...props} logIn={this.logIn}/>} />
-              <Redirect to="/home"/>
+              {/* <Redirect to="/home"/> */}
             </Switch>
             :
             <Switch>
-              <Route path="/home" component={Memes}/>
+              <Route path="/home" component={() => <Memes user={this.state.user}/>}/>
               <Route path="/memes/new" component={(props) => <Form {...props} user={this.state.user}/>}/>
-              <Route path="/about" component={About}/>
+              <Route path="/memes/:memeId" component={() => <SingleMeme user={this.state.user}/>}/>
               <Route exact path="/user" component={(props) => <Profile {...props} user={this.state.user}/>}/>
               <Route path="/user/edit" component={(props) => <Edit {...props} user={this.state.user} updateUser={this.updateUser}/>} />
-              <Redirect to="/home"/>
+              {/* <Redirect to="/home"/> */}
             </Switch>
           }
         </BrowserRouter>

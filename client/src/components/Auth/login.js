@@ -68,8 +68,8 @@ class Login extends Component {
                                     <button type="submit" className="btn btn-primary btn-block sub">Login</button>
                                 </div>
 
-                                <div class="row justify-content-center">
-                                    <p class="text-center">Don't have account? <a className=" link-info fs-5" id="link" href="/signup">Sign up
+                                <div className="row justify-content-center">
+                                    <p className="text-center">Don't have account? <a className=" link-info fs-5" id="link" href="/signup">Sign up
                                         here</a></p>
                                 </div>
                             </form>

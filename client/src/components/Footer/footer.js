@@ -9,9 +9,9 @@ function Footer(props) {
                 <div className="col-12 col-sm-4 align-self-center">
                     <div className="text-center">
                         <div><strong>Yogesh Kansal<br></br></strong>
-                            <a href="https://www.linkedin.com/in/yogesh-kansal-044a75194/"><span class="fa fa-linkedin fa-lg"></span></a>&nbsp;
-                            <a href="https://github.com/yogesh-kansal"><span class="fa fa-github fa-lg"></span></a>&nbsp;
-                            <a href="https://facebook.com/"><span class="fa fa-facebook fa-lg"></span></a>
+                            <a href="https://www.linkedin.com/in/yogesh-kansal-044a75194/"><span className="fa fa-linkedin fa-lg"></span></a>&nbsp;
+                            <a href="https://github.com/yogesh-kansal"><span className="fa fa-github fa-lg"></span></a>&nbsp;
+                            <a href="https://facebook.com/"><span className="fa fa-facebook fa-lg"></span></a>
                         </div>
                     </div>
 

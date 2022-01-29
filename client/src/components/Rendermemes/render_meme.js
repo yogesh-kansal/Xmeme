@@ -133,33 +133,30 @@ class Render_meme extends Component {
 
     render() {
         const errs = this.validate(this.state.caption);
+        console.log(this.props)
 
         return (
             
         <>
-            <div class="card">
+            <div className="card">
                 <div className="card-header mt-1 mx-1" style={{background:"#555", color:"white"}}>
                     <div className="row align-items-center">
                         <h5 className="col-auto ml-2">{this.props.meme.author}</h5>
                                         
                         <div className="col-auto ml-auto">
-                            <button className="btn btn-outline-light mr-2" onClick={() =>{
-                                if(this.props.user) return this.toggleModal()
-                                else return alert('To modify meme visit to ypur profile page!!!')}}><span className="fa fa-pencil fa-lg"></span></button>      
-                            <button className="btn btn-outline-light" onClick={() =>{
-                                if(this.props.user) return this.handleDelete()
-                                else return alert('To modify meme visit to ypur profile page!!!')}}><span className="fa fa-trash fa-lg"></span></button>
+                            <button className="btn btn-outline-light mr-2" onClick={() => this.toggleModal()} disabled={!this.props.user}><span className="fa fa-pencil fa-lg"></span></button>      
+                            <button className="btn btn-outline-light" onClick={() => this.handleDelete()} disabled={!this.props.user}><span className="fa fa-trash fa-lg"></span></button>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body mt-0">
+                <div className="card-body mt-0">
                     <div className="row">
                         <img className="meme_img" src={this.props.meme.url} alt="Admin" />
                          </div>
                         
-                        <div class="row mt-3">
-                            <p class="mb-1 p-1 caption"> {this.props.meme.caption}</p>
+                        <div className="row mt-3">
+                            <p className="mb-1 p-1 caption"> {this.props.meme.caption}</p>
                         </div>
                 </div>
 
@@ -170,8 +167,8 @@ class Render_meme extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12 text-right mt-1">
-                            updated At: {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
+                        <div className="col-12 ml-auto text-right mt-1">
+                            updated: {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.updatedAt)))}
                         </div>
                     </div>
                 </div>
@@ -200,7 +197,6 @@ class Render_meme extends Component {
                         <div className="row justify-content-center">
                             <div className="col-auto">
                                 OR
-                                <hr/>
                             </div>
                         </div>
 

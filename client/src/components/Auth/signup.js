@@ -81,7 +81,7 @@ class Signup extends Component {
                                         <button type="submit" className="col-6 btn btn-primary btn-block sub">Get started here</button>
                                 </div>
 
-                                <div class="row mt-3 justify-content-center">
+                                <div className="row mt-3 justify-content-center">
                                     <a className="text-center link-info fs-5" id="link" href="/login">Alreday have an Account?</a>
                                 </div>
                             </form>
