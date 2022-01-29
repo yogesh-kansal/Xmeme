@@ -4,7 +4,7 @@ const Comment = require('../models/comment');
 
 
 exports.getAllComments=catchAsync(async (req,res,next) => {
-    let comments = await Comment.find({blogId:req.params.blogId});
+    let comments = await Comment.find({memeId:req.params.memeId});
     res.status(200).json(comments);
 });
 

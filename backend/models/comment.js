@@ -10,7 +10,7 @@ const commentSchema = new Schema({
         type: String,
         required: true
     },
-    blogId: {
+    memeId: {
         type: mongoose.Types.ObjectId,
         required: true
     }
