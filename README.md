@@ -18,6 +18,15 @@ App supports JWT based authorization.<br/>
 <br/>
 <br/>
 
+### Comment on meme -
+<p align="center">
+<img src="./demoImages/comments.png"
+  alt="home"
+  width="716" height="300" style="border-style: solid">
+</p>
+<br/>
+<br/>
+
 ### Post New Meme -
 <p align="center">
 <img src="./demoImages/post_meme.png"
