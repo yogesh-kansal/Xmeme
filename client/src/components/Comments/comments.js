@@ -18,6 +18,7 @@ const Comments = ({memeId, user}) => {
                 }
             })
             .then(res => {
+                console.log(res)
                 setComments(res.data);
             })
             .catch(err => {
@@ -51,34 +52,35 @@ const Comments = ({memeId, user}) => {
 
 
     return (
-        <>
-            <div className="row mt-5">
+        <div className='container'>
+            {/* <div className="row mt-5">
                 <div className="col-auto"><h3>comments</h3><hr/></div>
-            </div>
+            </div> */}
 
             <div className="row">
-                <div className="col-9">
+                <div className="col-8 col-md-10">
                     <Input 
                         type="text"
                         value={New}
                         onChange={e=> setNew(e.target.value)}/>
                     </div>
-                <div className="col-3">
+                <div className="col-4 col-md-2">
                     <Button type="btn" color="primary" onClick={()=>addComment()}>Add it</Button>
                 </div>
             </div>
 
-            <div className="row mt-3 commentBox p-2 ml-2">
+            <div className="commentBox container">
+                <div className='row mt-3'>
                 {comments?.map((c, id) => {
                     return (
-                        <Comment key={id} comment={c}/>
+                        <div className='col-12 h-25' key={id}>
+                            <Comment comment={c}/>
+                        </div>
                     )
                 })}
+                </div>
             </div>
-
-
-
-        </>
+        </div>
     );
 }
 

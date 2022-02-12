@@ -87,7 +87,7 @@ class App extends Component {
               <Route path="/memes/new" component={Form}/>
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={(props) => <Login {...props} logIn={this.logIn}/>} />
-              {/* <Redirect to="/home"/> */}
+              <Redirect to="/home"/>
             </Switch>
             :
             <Switch>
@@ -96,7 +96,7 @@ class App extends Component {
               <Route path="/memes/:memeId" component={() => <SingleMeme user={this.state.user}/>}/>
               <Route exact path="/user" component={(props) => <Profile {...props} user={this.state.user}/>}/>
               <Route path="/user/edit" component={(props) => <Edit {...props} user={this.state.user} updateUser={this.updateUser}/>} />
-              {/* <Redirect to="/home"/> */}
+              <Redirect to="/home"/>
             </Switch>
           }
         </BrowserRouter>

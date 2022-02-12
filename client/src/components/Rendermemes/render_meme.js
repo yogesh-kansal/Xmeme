@@ -5,6 +5,8 @@ import './memes.css'
 import URL from '../../config';
 import axios from 'axios';
 import io from 'socket.io-client';
+import SingleMeme from '../SingleMeme/singleMeme';
+import Comments from '../Comments/comments';
 let socket;
 
 class Render_meme extends Component {
@@ -13,6 +15,7 @@ class Render_meme extends Component {
 
         this.state = {
             isModalOpen: false,
+            isModalOpen2: false,
             imageFile:null,
             url:'',
             caption:'',
@@ -22,6 +25,7 @@ class Render_meme extends Component {
             }
         }
         this.toggleModal = this.toggleModal.bind(this);
+        this.toggleModal2 = this.toggleModal2.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleModify = this.handleModify.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,6 +36,16 @@ class Render_meme extends Component {
     toggleModal() {
         this.setState({
             isModalOpen: !this.state.isModalOpen,
+            user:'',
+            usercaption:'',
+            imageFile:null
+        })
+    }
+
+    toggleModal2() {
+        console.log("caleed");
+        this.setState({
+            isModalOpen2: !this.state.isModalOpen2,
             user:'',
             usercaption:'',
             imageFile:null
@@ -138,29 +152,33 @@ class Render_meme extends Component {
         return (
             
         <>
-            <div className="card">
-                <div className="card-header mt-1 mx-1" style={{background:"#555", color:"white"}}>
+            <div className="card" onClick={this.props.user?this.toggleModal2:console.log("")}>
+                <div className="card-header " style={{background:"#555", color:"white"}}>
                     <div className="row align-items-center">
                         <h5 className="col-auto ml-2">{this.props.meme.author}</h5>
                                         
-                        <div className="col-auto ml-auto">
-                            <button className="btn btn-outline-light mr-2" onClick={() => this.toggleModal()} disabled={!this.props.user}><span className="fa fa-pencil fa-lg"></span></button>      
-                            <button className="btn btn-outline-light" onClick={() => this.handleDelete()} disabled={!this.props.user}><span className="fa fa-trash fa-lg"></span></button>
+                        <div className="col-auto ml-auto" style={{display:!this.props.user?"none":""}}>
+                            <button className="btn btn-outline-light mr-2" onClick={() => this.toggleModal()}><span className="fa fa-pencil fa-lg"></span></button>      
+                            <button className="btn btn-outline-light" onClick={() => this.handleDelete()}><span className="fa fa-trash fa-lg"></span></button>
                         </div>
                     </div>
                 </div>
 
-                <div className="card-body mt-0">
+                <div className="card-body mt-0 p-0" >
                     <div className="row">
-                        <img className="meme_img" src={this.props.meme.url} alt="Admin" />
-                         </div>
+                        <div className='col-12'>
+                            <img className="meme_img" src={this.props.meme.url} alt="Admin" />
+                        </div>
+                    </div>
                         
-                        <div className="row mt-3">
+                    <div className="row mt-3">
+                        <div className='col-12'>
                             <p className="mb-1 p-1 caption"> {this.props.meme.caption}</p>
                         </div>
+                    </div>
                 </div>
 
-                <div className="card-footer bg-white text-secondary">
+                <div className="card-footer  text-secondary">
                     <div className="row">
                         <div className="col-12 ml-auto text-right">
                             posted At: {new Intl.DateTimeFormat('en-US', {hour:'numeric', minute:'numeric',second:'numeric'}).format(new Date(Date.parse(this.props.meme.createdAt)))} 
@@ -221,6 +239,17 @@ class Render_meme extends Component {
                     </Form>
                 </ModalBody>
 
+            </Modal>
+
+            <Modal isOpen={this.state.isModalOpen2} toggle={this.toggleModal2} className="modal-lg">
+                {/* <SingleMeme memeId = {this.props.meme._id}/> */}
+                <ModalHeader toggle={this.toggleModal2} charCode="x">
+                    Comments
+                </ModalHeader>
+                <ModalBody>
+                    <Comments memeId={this.props.meme._id} user={this.props.user}/>
+                </ModalBody>
+                
             </Modal>
         </>
         );

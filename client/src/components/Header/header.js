@@ -36,7 +36,7 @@ class Header extends Component {
                         </NavbarBrand>
 
                         <div className="title ml-4">
-                            Xmeme
+                            memeHUB
                         </div>
 
                         <Collapse isOpen={this.state.isNavOpen} navbar>

@@ -13,7 +13,7 @@ const SingleMeme = (props) =>  {
   console.log(path)
 
   useEffect(() => {
-    axios.get(config.backend+`memes/${path}`, {
+    axios.get(config.backend+`memes/${props.memeId}`, {
       headers: {
         "Authorization": 'Bearer ' + localStorage.getItem('accesstoken')
       }
